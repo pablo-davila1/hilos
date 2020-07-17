@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{apacite}
+
+\title{hilos}
+\author{Juan Pablo Davila Bedoya }
+\date{\today}    
+
+\begin{document}
+
+\maketitle
+
+Es técnicamente imposible entender que es un hilo si no comprendemos que es un procesador. Un procesador o conocido también como CPU, puede ser considerado como el cerebro de una computadora, su trabajo es procesar todas las operaciones y programas, teniendo en cuenta todas las instrucciones de los componentes de las aplicaciones y los componentes de la computadora,\cite{3} el microprocesador o CPU nos permite hacer nuestras tareas cotidianas como jugar, escribir, navegar por Internet etc, hace algunas décadas las computadas solo podían tener un solo núcleo, es decir que solo podían realizar “una sola tarea a la vez”, sin embargo actualmente los procesadores pueden tener mas de una CPU, por lo cual,ahora las computadoras pueden realiza varias instrucciones por cada ciclo, los ciclos son la cantidad de instrucciones que puede realizar una computadora por unidad de tiempo, estos ciclos son normalmente medidos en megahercios,  por ejemplo “3800 MHz viene realizando tres mil ochocientos millones de operaciones por segundo que bien pueden ser suma, resta, multiplicación o división”\cite{2}, esta cantidad de instrucciones que puede realizar una computadora esta asociada también con la cantidad de núcleos que posea, si tienes dos núcleos puedes realizar “dos operaciones a la vez”, si tienes 6 núcleos puedes “realizar seis” y así sucesivamente. Ahora, ¿que son los hilos?, bueno, primero hay que entender que los hilos no son un componente de hardware de la computadora como si lo son los núcleos por ejemplo, un hilo de procesamiento puede definirse entonces como el flujo del control de datos de un programa en ejecución, los hilos permiten administrar las tareas de un procesador buscando como es habitual una mejor eficiencia, los hilos permíten que las unidades mínimas de asignación (procesos de un programa) pueden dividirse es varias partes, de esta manera se optimizan los tiempos de espera en la cola de procesamiento, una analogía adecuada para  entender la función de los hilos es pensando en una cola de supermercado en una caja de pago, cuando llegas con un carrito de compras a la caja para pagar y recuerdas que te olvidaste de algo pueden pasar dos cosas, la primera es que el cajero espere a que vallas por el objeto que olvidaste sin atender a nadie hasta que tu no llegues y pagues, o, la segunda opción es que cuando te vallas por el objeto que olvidaste el cajero optimice el tiempo y comience a atender al resto de personas que están detrás de usted mientras usted llega con el objeto olvidado; esta segunda opción es análoga a lo que los hilos permiten en las computadoras , una explicación minimamente mas rigurosa es que cada hilo contiene una parte de la instrucción que se debe realizar, algo que resulta mas eficiente que someter al núcleo a ejecutar toda la tarea, esto nos da a entender que no solo importa la cantidad de núcleos, si no que también importa la cantidad de hilos que pueda generar cada núcleo o procesador, los cuales son por lo general uno o dos hilos por cada núcleo.\cite{1} 
+
+Al igual que con las interrupciones, hablar de un momento exacto en el que los hilos empezaron a existir es demasiado complicado; esta claro que las primeras computadoras no poseían hilos o sistemas operativos, esto debido a que estas maquinas solo podían ejecutar una sola instrucción a la vez, sin embargo la idea de la existencia de interrupciones e hilos nacieron en el momento en el cual se quiso crear una computadora que soportara mas de un proceso al mismo tiempo, de igual manera pensar en una comercialización de las computadoras para todo el mundo, requiere que estas computadoras las puedan manipular personas sin conocimientos profundos de alguna ingeniería asociada a la informática, ademas esta comercialización masiva para gente del común exige que las computadoras también sirvan para fines triviales, como ver un video con audio por ejemplo; esta claro que la historia de los hilos no se remonta solo al momento en el que se concibió una comercialización de estos aparatos, si no que se remonta también al momento en el cual se pensó en una computadora multinacional.  
+
+Podemos clasificar los hilos según su estado, los segmentaremos entonces en cuatro estados, los cuales son: estado nuevo o creación, estado en ejecución o desbloqueo, estado listo, preparado o desbloqueado, estado bloqueado y estado finalizado o terminación. \cite{4}
+
+    • Estado nuevo o creación : cuando un proceso acaba de ser inicial izado, se crea entonces un hilo para dicho proceso, posteriormente este hilo tiene la capacidad de generar mas hilos para el mismo proceso, generando inmediatamente un puntero de la instrucción , este hilo pasara a la cola de los hilos listos.
+    
+    • estado en ejecución o desbloqueo : este estado se genera cuando la CPU está ejecutando instrucciones correspondientes a un proceso, de igual manera que el estado anterior, este pasa a la cola de los hilos listos.
+    
+    • estado listo, preparado o desbloqueado : este estado es producido cuando el proceso por el cual se bloqueo el hilo sucede, es decir, el proceso al cual pertenece el hilo espera ser asignado por la CPU.
+    
+    • estado bloqueado : el estado bloqueado ocurre cuando existe un instrucción por la cual el hilo esta esperando, el procesador entonces tendrá la capacidad de ejecutar otro hilo que este antes en la lista de hilos.
+    
+    • estado finalizado o terminación : cundo un proceso termina su ejecución, el hilo se libera.
+Cuando hablamos de la implementación de hilos, es obligatorio hablar de los hilos a nivel de usuario y de hilos a nivel de kernel. \cite{al}
+Los hilos a nivel de usuario son implementados o importados de alguna librería, estos son completamente independientes del sistema operativo, ya que este solo los reconoce como hilos en ejecución, esta implementación permite el uso de hilos en sistemas operativos que no acepten hilos, ademas permiten que cada proceso tenga un algoritmo especifico de planificación. []
+Los hilos a nivel de kernel son creados, planificados y gestionados por el sistema operativo, estos hilos son generalmente mas eficientes, ya que permiten un mejor gestionamiento de las arquitecturas de los multiprocesadores , de esta manera se espera un tiempo respuesta menor.
+existen 3 tipos de  relaciones o implementaciones:
+
+    • Modelo Mx1 (todos a uno) : esta primera implementación corresponde a hilos a nivel de usuario, y consiste en asignar mas de un hilo a nivel de usuario a solo un hilo a nivel del kernel. En caso de que uno de los hilos a nivel de usuario  se bloquee, entonces todo el proceso se bloqueará, ademas no se podrán ejecutar varios hilos simultáneamente en la CPU.
+    
+    •  Modelo 1x1 (uno a uno) : esta implementación es contraria a la anterior, pues asocia cada hilo a nivel de usuario a un  hilo a nivel de kernel, ademas si un hilo se bloquea el proceso podrá seguir ejecutándose, sin embargo puede resultar inconveniente que los hilos a nivel de kernel estén casi siempre restringidos.
+    
+    • Modelo MxN (todos a todos) : en esta implementación se hacen circular por por la misma linea de transmisión varios hilos de usuario hasta un numero de hilos de kernel igual o menor al numero de hilos de usuario, este es la combinación de las dos anteriores implementaciones, ademas, gracias a tener lo bueno de las dos anteriores implementaciones, no sufre de los problemas que tienen estas.\cite{af}
+    Algunos lenguajes de programación como (c y c++) no están diseñados para usar hilos de programación, por lo cual si quieres usarlos debes importar bibliotecas especiales que dependen del sistema operativo, lenguajes como java si están diseñados para usar hilos.
+
+El hardware también es algo que afecte, por ejemplo en en modelo 1x1(uno a uno), depende de que tipo de kernel se este usando, pues existen algunos que permiten la creación de mas hilos a nivel de usuario que otros.
+    
+    
+\bibliographystyle{apacite}
+\bibliography{bibliografia.bib}
+
+\end{document}
